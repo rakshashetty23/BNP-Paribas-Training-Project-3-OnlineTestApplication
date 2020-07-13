@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title> Online Test - Result</title>
+        <link rel="stylesheet" type="text/css" href="css\style.css">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <div class="header">
+            <h1>Online Test Application</h1>
+        </div class="main">
+            <div class="marks"> 
+                <h1>Your Score:<p id="marks"></p></h1>
+            </div>
+            <button onclick="review()" id="reviewButton" >Review</button>&nbsp;&nbsp;
+            <button onclick="goBack()" id="goBackButton" >Home</button>
+            <div class="review" id="reviewDisplay">
+                <p id = "heading"></p>
+                    <p id = "review"></p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy Copyright 2020</p> 
+        </div>
+    </body>
+    <script>
+        console.log(localStorage.getItem("Marks"))
+        document.getElementById("marks").innerHTML = localStorage.getItem("Marks")
+
+        function review(){
+            document.getElementById("heading").innerHTML="<br><h2>Test Review</h2><br>"
+            var QuestionsSet=JSON.parse(localStorage.getItem("QuestionsSet"));
+            var submittedAnswers = JSON.parse(localStorage.getItem("submittedAnswers"));
+            var i 
+            for(i =0; i<QuestionsSet.length; i++){
+                document.getElementById("review").innerHTML += QuestionsSet[i].question+"<br>Options : <br>"
+                +QuestionsSet[i].opt1+"<br>"+QuestionsSet[i].opt2+"<br>"+QuestionsSet[i].opt3+"<br>"
+                +QuestionsSet[i].opt4+"<br><br><b>Correct Answer :</b> "+QuestionsSet[i].answer+"<br><b>Your answer :</b> "+submittedAnswers[i]+"<br><br><br>"
+            }
+        } 
+        function goBack(){
+            document.location.href="index.html"
+        }
+        
+        $("#reviewButton").click(function(){
+            $("#reviewDisplay").toggle();
+        });
+    </script>
+   
+</html> 
